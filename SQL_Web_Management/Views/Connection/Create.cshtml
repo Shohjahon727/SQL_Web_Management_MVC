@@ -1,0 +1,21 @@
+﻿@model ConnectionFormViewModel
+@{
+    ViewData["Title"] = "Yangi ulanish";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4 mb-4">Yangi SQL Server ulanishi</h1>
+
+                <partial name="_ConnectionForm" model="Model" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/connection-form.js" asp-append-version="true"></script>
+}

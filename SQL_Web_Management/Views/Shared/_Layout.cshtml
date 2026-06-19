@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SQL Web Studio</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="app-body">
+    @if (User.Identity?.IsAuthenticated == true && !ViewData.ContainsKey("HideNav"))
+    {
+        <nav class="navbar navbar-dark app-navbar px-3">
+            <a class="navbar-brand fw-semibold" asp-controller="Connection" asp-action="Index">SQL Web Studio</a>
+            <div class="d-flex align-items-center gap-3">
+                <a class="nav-link text-light" asp-controller="Connection" asp-action="Index">Ulanishlar</a>
+                <span class="text-secondary small">@User.Identity?.Name</span>
+                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-sm btn-outline-light">Chiqish</button>
+                </form>
+            </div>
+        </nav>
+    }
+
+    <main class="@(ViewData.ContainsKey("FullWidth") ? "app-main-full" : "container py-4")">
+        @RenderBody()
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

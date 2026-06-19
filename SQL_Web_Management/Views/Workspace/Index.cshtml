@@ -1,0 +1,98 @@
+﻿@model WorkspaceViewModel
+@{
+    ViewData["Title"] = Model.ConnectionName;
+    Layout = "_Layout";
+    ViewData["FullWidth"] = true;
+}
+
+<div class="workspace" id="workspace"
+     data-connection-id="@Model.ConnectionId"
+     data-connection-name="@Model.ConnectionName"
+     data-server="@Model.Server"
+     data-database="@Model.Database">
+    <aside class="workspace-sidebar">
+        <div class="workspace-sidebar-header">
+            <div class="fw-semibold">Object Explorer</div>
+            <div class="small text-secondary">@Model.Server</div>
+        </div>
+        <div class="workspace-tree" id="objectTree">
+            <div class="text-secondary small p-3">Yuklanmoqda...</div>
+        </div>
+    </aside>
+
+    <section class="workspace-main">
+        <div class="workspace-toolbar">
+            <div class="query-tabs" id="queryTabs"></div>
+            <div class="workspace-toolbar-actions">
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btnNewTab">+</button>
+                <label class="small text-secondary mb-0">DB:</label>
+                <select id="databaseContext" class="form-select form-select-sm db-context-select"></select>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="btnThemeToggle">🌓</button>
+                <button type="button" class="btn btn-sm btn-primary" id="btnExecute">▶ Execute</button>
+            </div>
+        </div>
+
+        <div class="workspace-center">
+            <div class="workspace-editor" id="editorContainer"></div>
+            <div class="workspace-resize-handle" id="panelResizeHandle" title="Tortib o'lchamini o'zgartiring" aria-label="Natijalar panelini o'lchamlash"></div>
+            <div class="workspace-bottom" id="workspaceBottom">
+                <ul class="nav nav-tabs workspace-result-tabs">
+                <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#resultsPane">Results</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#messagesPane">Messages</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#columnsPane">Columns</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#historyPane">History</button>
+                </li>
+                </ul>
+
+                <div class="tab-content workspace-tab-content">
+                <div class="tab-pane fade show active" id="resultsPane">
+                    <div class="workspace-results-toolbar">
+                        <span id="resultsInfo" class="small text-secondary">Natija yo'q</span>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="btnExportCsv" disabled>CSV Export</button>
+                    </div>
+                    <div class="workspace-results" id="resultsGrid"></div>
+                </div>
+                <div class="tab-pane fade" id="messagesPane">
+                    <div class="messages-toolbar">
+                        <button type="button" class="btn btn-sm btn-link" id="btnClearMessages">Tozalash</button>
+                    </div>
+                    <pre class="workspace-messages" id="messagesPanel">Tayyor.</pre>
+                </div>
+                <div class="tab-pane fade" id="columnsPane">
+                    <div class="workspace-results" id="columnsGrid">
+                        <div class="p-3 text-secondary small">Jadval tanlanmagan</div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="historyPane">
+                    <div class="workspace-results" id="historyList">
+                        <div class="p-3 text-secondary small">Yuklanmoqda...</div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="workspace-statusbar">
+            <span>Connected: <strong>@Model.Server</strong></span>
+            <span>DB: <strong id="statusDatabase">@Model.Database</strong></span>
+            <span id="statusElapsed">00:00:00.000</span>
+            <span id="statusRows">0 rows</span>
+        </div>
+    </section>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/workspace.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+    <script src="~/js/workspace.js" asp-append-version="true"></script>
+}
